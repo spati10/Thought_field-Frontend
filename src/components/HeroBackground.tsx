@@ -307,8 +307,7 @@ export default function HeroBackground({
   useEffect(() => {
     const cv = canvasRef.current;
     if (!cv) return;
-    const ctx = cv.getContext("2d");
-    if (!ctx) return;
+    const ctx = cv.getContext("2d")!;
 
     // make canvas fill its parent container
     const resize = () => {
