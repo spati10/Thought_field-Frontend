@@ -329,27 +329,30 @@ export default function HeroBackground({
     if (cv.parentElement) ro.observe(cv.parentElement);
 
     function loop() {
-      const W = cv.width;
-      const H = cv.height;
-      if (!W || !H) { rafRef.current = requestAnimationFrame(loop); return; }
+  if (!cv) return;
 
-      // semi-transparent fill creates a subtle motion trail
-      ctx.fillStyle = "rgba(8,8,26,.82)";
-      ctx.fillRect(0, 0, W, H);
+  const W = cv.width;
+  const H = cv.height;
+  if (!W || !H) { 
+    rafRef.current = requestAnimationFrame(loop);
+    return;
+  }
 
-      // soft center radial ambiance
-      const amb = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, 280);
-      amb.addColorStop(0, "rgba(83,74,183,.06)");
-      amb.addColorStop(1, "transparent");
-      ctx.fillStyle = amb;
-      ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = "rgba(8,8,26,.82)";
+  ctx.fillRect(0, 0, W, H);
 
-      const ag = agentsRef.current;
-      ag.forEach((a) => updateAgent(a, ag, W, H));
-      ag.forEach((a) => drawAgent(ctx, a, ag));
+  const amb = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, 280);
+  amb.addColorStop(0, "rgba(83,74,183,.06)");
+  amb.addColorStop(1, "transparent");
+  ctx.fillStyle = amb;
+  ctx.fillRect(0, 0, W, H);
 
-      rafRef.current = requestAnimationFrame(loop);
-    }
+  const ag = agentsRef.current;
+  ag.forEach((a) => updateAgent(a, ag, W, H));
+  ag.forEach((a) => drawAgent(ctx, a, ag));
+
+  rafRef.current = requestAnimationFrame(loop);
+}
 
     loop();
 
