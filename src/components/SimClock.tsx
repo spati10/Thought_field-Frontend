@@ -68,11 +68,15 @@ export function SimClock({
       </div>
  
       {/* Connection indicator */}
-      <div style={{
-        width: 6, height: 6, borderRadius: "50%",
-        background: connected ? "#1D9E75" : "#888780",
-        title: connected ? "Connected" : "Disconnected",
-      }} />
+      <div
+  title={connected ? "Connected" : "Disconnected"}
+  style={{
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    background: connected ? "#1D9E75" : "#888780",
+  }}
+/>
  
       {/* Stats */}
       {stats && (
